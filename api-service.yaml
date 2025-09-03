@@ -1,0 +1,13 @@
+# api-service.yaml
+apiVersion: v1     # Service 리소스의 API 버전
+kind: Service      # 만들려는 쿠버네티스 리소스의 종류: Service (Pod를 외부로 노출)
+metadata:
+  name: my-api-service # 이 Service의 이름
+spec:
+  selector:
+    app: my-api      # 'app: my-api' 레이블을 가진 Pod들을 이 Service의 대상으로 삼겠다.
+  ports:
+  - protocol: TCP
+    port: 80         # Service가 클러스터 내부에서 노출될 포트 (원하는 포트)
+    targetPort: 8000 # Pod 컨테이너가 실제로 리스닝하는 포트 (FastAPI 앱이 8000번 사용)
+  type: NodePort     # Service의 타입: 클러스터 외부에서 접근 가능하도록 노드 포트를 할당
